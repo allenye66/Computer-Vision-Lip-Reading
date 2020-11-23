@@ -4,6 +4,8 @@ import cv2
 faceCascade=cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
+#mouth = cv2.CascadeClassifier("/Users/allen/Desktop/haarcascade_mouth.xml")
+
 img = cv2.imread('/Users/allen/Desktop/Automated-Speech-Recognition/download.jpg')
 
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

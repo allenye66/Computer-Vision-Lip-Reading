@@ -2,7 +2,7 @@ import cv2, time
 import numpy as np
 
 faceCascade=cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+#eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 mouth_cascade = cv2.CascadeClassifier("/Users/allen/Desktop/Automated-Speech-Recognition/haarcascade_mouth.xml")
 def regRecord():
 	video = cv2.VideoCapture(0)

@@ -28,7 +28,7 @@ while True:
         landmarks = predictor(image=gray, box=face)
 
         # Loop through all the points (0-68 for all features)
-        for n in range(48, 60):
+        for n in range(48, 61):
             x = landmarks.part(n).x
             y = landmarks.part(n).y
 

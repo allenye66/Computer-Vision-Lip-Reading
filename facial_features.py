@@ -8,6 +8,8 @@ import urllib.request
 from scipy.spatial import distance
 from matplotlib import pyplot as plt
 frontalface_detector = dlib.get_frontal_face_detector()
+img = cv2.imread('/Users/allen/Desktop/Automated-Speech-Recognition/download.jpg')
+
 def rect_to_bb(rect):
 
 	x = rect.left()
@@ -16,7 +18,6 @@ def rect_to_bb(rect):
 	h = rect.bottom() - y
 	return (x, y, w, h)
 
-img = cv2.imread('/Users/allen/Desktop/Automated-Speech-Recognition/download.jpg')
 def detect_face(img):
 	rects = frontalface_detector(img, 1)
 
@@ -27,9 +28,10 @@ def detect_face(img):
 	plt.imshow(img, interpolation='nearest')
 	plt.axis('off')
 	plt.show()
-landmark_predictor = dlib.shape_predictor('/Users/allen/Desktop/Automated-Speech-Recognition/face_weights.dat')
 
 def get_landmarks(image):
+	landmark_predictor = dlib.shape_predictor('/Users/allen/Desktop/Automated-Speech-Recognition/face_weights.dat')
+
 	faces = frontalface_detector(image, 1)
 	if len(faces):
 		landmarks = [(p.x, p.y) for p in landmark_predictor(image, faces[0]).parts()]

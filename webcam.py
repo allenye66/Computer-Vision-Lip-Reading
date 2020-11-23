@@ -1,33 +1,68 @@
-import cv2, time
+import cv2
+import dlib
+import math
+import unittest
 import numpy as np
+import urllib.request
 
-faceCascade=cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-#eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
-mouth_cascade = cv2.CascadeClassifier("/Users/allen/Desktop/Automated-Speech-Recognition/haarcascade_mouth.xml")
+from scipy.spatial import distance
+from matplotlib import pyplot as plt
+frontalface_detector = dlib.get_frontal_face_detector()
+
+def rect_to_bb(rect):
+
+	x = rect.left()
+	y = rect.top()
+	w = rect.right() - x
+	h = rect.bottom() - y
+	return (x, y, w, h)
+
+def detect_face(img):
+	rects = frontalface_detector(img, 1)
+
+	for (i, rect) in enumerate(rects):
+		(x, y, w, h) = rect_to_bb(rect)
+		cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+	plt.imshow(img, interpolation='nearest')
+	plt.axis('off')
+	plt.show()
+
+def get_landmarks(image):
+	landmark_predictor = dlib.shape_predictor('/Users/allen/Desktop/Automated-Speech-Recognition/face_weights.dat')
+
+	faces = frontalface_detector(image, 1)
+	if len(faces):
+		landmarks = [(p.x, p.y) for p in landmark_predictor(image, faces[0]).parts()]
+	else:
+		return None,None
+	return image,landmarks
+
+def image_landmarks(image,face_landmarks):
+  radius = -1
+  circle_thickness = 5
+  image_copy = image.copy()
+  for (x, y) in face_landmarks:
+  	cv2.circle(image_copy, (x, y), circle_thickness, (255,0,0), radius)
+	
+  plt.imshow(image_copy, interpolation='nearest')
+  plt.axis('off')
+  plt.show()
+
 def regRecord():
 	video = cv2.VideoCapture(0)
 	a = 0
 	while True:
 		a = a + 1
 		check, frame = video.read()
-		faces = faceCascade.detectMultiScale(frame,1.1,4)
-		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-
-		for (x,y,w,h) in faces:
-			cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
-			roi_gray = gray[y:y+h, x:x+w]
-			roi_color = frame[y:y+h, x:x+w]
-			mouth = mouth_cascade.detectMultiScale(roi_gray)
-			for (ex,ey,ew,eh) in mouth:
-				cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-
-			#eyes = eye_cascade.detectMultiScale(roi_gray)
-			#for (ex,ey,ew,eh) in eyes:
-			#	cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+		
+		image,landmarks= get_landmarks(frame) #url
 
 
 		cv2.imshow("Recording", frame)
+		if landmarks:
+  			image_landmarks(image,landmarks)
+
 
 
 		key = cv2.waitKey(1)

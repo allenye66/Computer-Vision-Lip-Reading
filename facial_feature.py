@@ -1,49 +1,60 @@
 import cv2
 import dlib
+import math
+import unittest
+import numpy as np
+import urllib.request
 
-# Load the detector
-detector = dlib.get_frontal_face_detector()
+from scipy.spatial import distance
+from matplotlib import pyplot as plt
+frontalface_detector = dlib.get_frontal_face_detector()
+img = cv2.imread('/Users/allen/Desktop/Automated-Speech-Recognition/download.jpg')
 
-# Load the predictor
-predictor = dlib.shape_predictor("face_weights.dat")
+def rect_to_bb(rect):
 
-# read the image
-cap = cv2.VideoCapture(0)
+	x = rect.left()
+	y = rect.top()
+	w = rect.right() - x
+	h = rect.bottom() - y
+	return (x, y, w, h)
 
-while True:
-    _, frame = cap.read()
-    # Convert image into grayscale
-    gray = cv2.cvtColor(src=frame, code=cv2.COLOR_BGR2GRAY)
+def detect_face(img):
+	rects = frontalface_detector(img, 1)
 
-    # Use detector to find landmarks
-    faces = detector(gray)
+	for (i, rect) in enumerate(rects):
+		(x, y, w, h) = rect_to_bb(rect)
+		cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    for face in faces:
-        x1 = face.left()  # left point
-        y1 = face.top()  # top point
-        x2 = face.right()  # right point
-        y2 = face.bottom()  # bottom point
+	plt.imshow(img, interpolation='nearest')
+	plt.axis('off')
+	plt.show()
 
-        # Create landmark object
-        landmarks = predictor(image=gray, box=face)
+def get_landmarks(image):
+	landmark_predictor = dlib.shape_predictor('/Users/allen/Desktop/Automated-Speech-Recognition/face_weights.dat')
 
-        # Loop through all the points (0-68 for all features)
-        for n in range(48, 61):
-            x = landmarks.part(n).x
-            y = landmarks.part(n).y
+	faces = frontalface_detector(image, 1)
+	if len(faces):
+		landmarks = [(p.x, p.y) for p in landmark_predictor(image, faces[0]).parts()]
+	else:
+		return None,None
+	return image,landmarks
 
-            # Draw a circle
-            cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
+def image_landmarks(image,face_landmarks):
+  radius = -1
+  circle_thickness = 5
+  image_copy = image.copy()
+  for (x, y) in face_landmarks:
+  	cv2.circle(image_copy, (x, y), circle_thickness, (255,0,0), radius)
+	
+  plt.imshow(image_copy, interpolation='nearest')
+  plt.axis('off')
+  plt.show()
 
-    # show the image
-    cv2.imshow(winname="Mouth", mat=frame)
+#detect_face(img)
+image,landmarks= get_landmarks(img) #url
 
-    # Exit when escape is pressed
-    if cv2.waitKey(delay=1) == 27:
-        break
-
-# When everything done, release the video capture and video write objects
-cap.release()
-
-# Close all windows
-cv2.destroyAllWindows()
+#Plot the Facial Landmarks on the face
+if landmarks:
+  image_landmarks(image,landmarks)
+else:
+  print ("No Landmarks Detected")

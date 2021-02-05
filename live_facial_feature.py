@@ -32,7 +32,7 @@ while True:
         #bottom: 57
         #left: 48
         #right: 64
-        for n in range(57, 58):
+        for n in range(48, 61):
             x = landmarks.part(n).x
             y = landmarks.part(n).y
 

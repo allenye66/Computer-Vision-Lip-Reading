@@ -1,21 +1,15 @@
 import cv2
 import dlib
 
-# Load the detector
 detector = dlib.get_frontal_face_detector()
-
-# Load the predictor
 predictor = dlib.shape_predictor("/Users/allen/Desktop/Automated-Speech-Recognition/face_weights.dat")
 
-# read the image
 cap = cv2.VideoCapture(0)
 
 while True:
     _, frame = cap.read()
-    # Convert image into grayscale
     gray = cv2.cvtColor(src=frame, code=cv2.COLOR_BGR2GRAY)
 
-    # Use detector to find landmarks
     faces = detector(gray)
 
     for face in faces:
@@ -24,7 +18,6 @@ while True:
         x2 = face.right()  # right point
         y2 = face.bottom()  # bottom point
 
-        # Create landmark object
         landmarks = predictor(image=gray, box=face)
 
         # Loop through all the points (0-68 for all features)
@@ -35,9 +28,21 @@ while True:
         for n in range(57, 58):
             x = landmarks.part(n).x
             y = landmarks.part(n).y
-
-            # Draw a circle
             cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
+
+            top_y = landmarks.part(51).y
+            bottom_y = landmarks.part(57).y
+            left_x = landmarks.part(48).x
+            right_x = landmarks.part(64).x
+
+            print("highest_y", top_y)
+            print("lowest_y", bottom_y)
+            print("leftmost_x", left_x)
+            print("rightmost_x", right_x)
+
+
+     
+
 
     # show the image
     cv2.imshow(winname="Mouth", mat=frame)
@@ -46,8 +51,5 @@ while True:
     if cv2.waitKey(delay=1) == 27:
         break
 
-# When everything done, release the video capture and video write objects
 cap.release()
-
-# Close all windows
 cv2.destroyAllWindows()

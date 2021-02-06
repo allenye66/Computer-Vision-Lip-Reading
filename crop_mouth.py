@@ -2,9 +2,10 @@ import cv2
 import dlib
 
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("/Users/allen/Desktop/Automated-Speech-Recognition/face_weights.dat")
+predictor = dlib.shape_predictor("face_weights.dat")
 
 cap = cv2.VideoCapture(0)
+count = 0
 
 while True:
     _, frame = cap.read()
@@ -46,6 +47,7 @@ while True:
 
 
 
+
     print("top_y", top_y)
     print("bottom_y", bottom_y)
     print("left_x", left_x)
@@ -62,7 +64,12 @@ while True:
     
     #frame = frame[upper_left[1]:upper_left[1]+height, upper_left[0]:upper_left[0]+width]
     frame = frame[top_y: bottom_y, left_x: right_x]
+
+    cv2.imwrite("Frames/frame%d.jpg" % count, frame)    # save frame
+    
     cv2.imshow(winname="Mouth", mat=frame)
+
+    count += 1
 
     # Exit when escape is pressed
     if cv2.waitKey(delay=1) == 27:

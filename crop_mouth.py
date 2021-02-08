@@ -6,6 +6,8 @@ predictor = dlib.shape_predictor("face_weights.dat")
 
 cap = cv2.VideoCapture(0)
 count = 0
+frame_height = 100
+frame_width = 140
 
 while True:
     _, frame = cap.read()
@@ -37,21 +39,33 @@ while True:
             x = landmarks.part(n).x
             y = landmarks.part(n).y
             cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
-            
-            padding_y = 5
-            padding_x = 20
-            top_y = landmarks.part(51).y  - padding_y
-            bottom_y = landmarks.part(57).y  + padding_y
-            left_x = landmarks.part(48).x - padding_x
+
+            middle_height = landmarks.part(57).y - landmarks.part(51).y
+
+            padding_y = (frame_height - middle_height) // 2;
+            if (frame_height - middle_height) % 2 == 1:
+                top_y = landmarks.part(51).y - padding_y - 1
+            else:
+                top_y = landmarks.part(51).y - padding_y
+            bottom_y = landmarks.part(57).y + padding_y
+
+            middle_width = landmarks.part(64).x - landmarks.part(48).x
+
+            padding_x = (frame_width - middle_width) // 2;
+            if (frame_width - middle_width) % 2 == 1:
+                left_x = landmarks.part(48).x - padding_x - 1
+            else:
+                left_x = landmarks.part(48).x - padding_x
             right_x = landmarks.part(64).x + padding_x
-
-
-
-
-    print("top_y", top_y)
-    print("bottom_y", bottom_y)
-    print("left_x", left_x)
-    print("right_x", right_x)
+            
+            
+    # print("top_y", top_y)
+    # print("bottom_y", bottom_y)
+    # print("left_x", left_x)
+    # print("right_x", right_x)
+    height = bottom_y - top_y
+    width = right_x - left_x
+    print('Frame: ' + str(width) + ' x ' + str(height))
 
 
 

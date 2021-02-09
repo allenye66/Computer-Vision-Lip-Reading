@@ -2,7 +2,7 @@ import csv
 import sys
 
 def phoneme_to_word(phonemes):
-	with open('phonemes.csv') as csv_file:
+	with open('/Users/allen/Desktop/Automated-Speech-Recognition/phonemes.csv') as csv_file:
 		csv_reader = csv.reader(csv_file, delimiter=',')
 		line_count = 0
 		for row in csv_reader:

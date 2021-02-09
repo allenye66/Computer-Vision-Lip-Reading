@@ -113,10 +113,6 @@
       "word": "who"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 27,
-      "startOffset": 25,
-      "word": "is"
     },
     {
       "alignedWord": "deaf",
@@ -456,19 +452,7 @@
       "word": "or"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 6.869999999999999,
-      "endOffset": 115,
-      "phones": [
-        {
-          "duration": 0.77,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 6.1,
-      "startOffset": 102,
-      "word": "speechreading"
+      "
     },
     {
       "alignedWord": "as",
@@ -754,16 +738,6 @@
       "word": "are"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 178,
-      "startOffset": 177,
-      "word": "a"
-    },
-    {
-      "case": "not-found-in-audio",
-      "endOffset": 182,
-      "startOffset": 179,
-      "word": "lot"
     },
     {
       "alignedWord": "of",
@@ -1500,10 +1474,6 @@
       "word": "it"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 349,
-      "startOffset": 345,
-      "word": "does"
     },
     {
       "alignedWord": "and",
@@ -2372,22 +2342,10 @@
       "word": "assumptions"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 541,
-      "startOffset": 537,
-      "word": "that"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 548,
-      "startOffset": 542,
-      "word": "people"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 553,
-      "startOffset": 549,
-      "word": "have"
     },
     {
       "alignedWord": "and",
@@ -2581,10 +2539,6 @@
       "word": "and"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 591,
-      "startOffset": 587,
-      "word": "just"
     },
     {
       "alignedWord": "to",
@@ -2856,10 +2810,6 @@
       "word": "lip"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 652,
-      "startOffset": 645,
-      "word": "reading"
     },
     {
       "alignedWord": "and",
@@ -2950,10 +2900,6 @@
       "word": "lip"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 678,
-      "startOffset": 671,
-      "word": "reading"
     },
     {
       "alignedWord": "like",
@@ -3868,16 +3814,8 @@
       "word": "I"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 879,
-      "startOffset": 875,
-      "word": "just"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 884,
-      "startOffset": 880,
-      "word": "want"
     },
     {
       "alignedWord": "to",
@@ -5288,10 +5226,6 @@
       "word": "how"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 1188,
-      "startOffset": 1186,
-      "word": "do"
     },
     {
       "alignedWord": "you",
@@ -5761,10 +5695,6 @@
       "word": "do"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 1293,
-      "startOffset": 1291,
-      "word": "it"
     },
     {
       "alignedWord": "it",
@@ -6990,10 +6920,6 @@
       "word": "of"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 1568,
-      "startOffset": 1564,
-      "word": "that"
     },
     {
       "alignedWord": "i",
@@ -7050,10 +6976,6 @@
       "word": "naturally"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 1587,
-      "startOffset": 1582,
-      "word": "tried"
     },
     {
       "alignedWord": "to",
@@ -8034,10 +7956,6 @@
       "word": "of"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 1813,
-      "startOffset": 1809,
-      "word": "that"
     },
     {
       "alignedWord": "i",
@@ -8543,19 +8461,7 @@
       "word": "through"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 114.52,
-      "endOffset": 1936,
-      "phones": [
-        {
-          "duration": 0.52,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 114.0,
-      "startOffset": 1924,
-      "word": "audiologists"
+      
     },
     {
       "alignedWord": "as",
@@ -9280,10 +9186,6 @@
       "word": "and"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2097,
-      "startOffset": 2094,
-      "word": "you"
     },
     {
       "alignedWord": "hear",
@@ -10668,10 +10570,6 @@
       "word": "And"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2395,
-      "startOffset": 2391,
-      "word": "it's"
     },
     {
       "alignedWord": "a",
@@ -10908,10 +10806,6 @@
       "word": "it"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2446,
-      "startOffset": 2444,
-      "word": "is"
     },
     {
       "alignedWord": "and",
@@ -12136,10 +12030,6 @@
       "word": "at"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2710,
-      "startOffset": 2708,
-      "word": "it"
     },
     {
       "alignedWord": "and",
@@ -12612,19 +12502,7 @@
       "word": "it"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 168.04,
-      "endOffset": 2814,
-      "phones": [
-        {
-          "duration": 0.32,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 167.72,
-      "startOffset": 2811,
-      "word": "100"
+      
     },
     {
       "alignedWord": "right",
@@ -13127,10 +13005,6 @@
       "word": "sound"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2923,
-      "startOffset": 2921,
-      "word": "of"
     },
     {
       "alignedWord": "and",
@@ -13306,16 +13180,8 @@
       "word": "us"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2970,
-      "startOffset": 2963,
-      "word": "Because"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 2976,
-      "startOffset": 2971,
-      "word": "there"
     },
     {
       "alignedWord": "have",
@@ -13487,40 +13353,12 @@
       "word": "around"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 181.649999,
-      "endOffset": 3021,
-      "phones": [
-        {
-          "duration": 0.61,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 181.039999,
-      "startOffset": 3019,
-      "word": "30"
+      
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 3024,
-      "startOffset": 3022,
-      "word": "to"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 181.66,
-      "endOffset": 3027,
-      "phones": [
-        {
-          "duration": 0.59,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 181.07,
-      "startOffset": 3025,
-      "word": "45"
+      
     },
     {
       "alignedWord": "of",
@@ -14249,19 +14087,7 @@
       "word": "up"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 193.26999899999998,
-      "endOffset": 3187,
-      "phones": [
-        {
-          "duration": 0.76,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 192.509999,
-      "startOffset": 3185,
-      "word": "30"
+      
     },
     {
       "alignedWord": "of",
@@ -14552,22 +14378,10 @@
       "word": "not"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 3252,
-      "startOffset": 3251,
-      "word": "a"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 3256,
-      "startOffset": 3253,
-      "word": "lot"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 3259,
-      "startOffset": 3257,
-      "word": "at"
     },
     {
       "alignedWord": "all",
@@ -14781,16 +14595,8 @@
       "word": "is"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 3318,
-      "startOffset": 3310,
-      "word": "actually"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 3323,
-      "startOffset": 3319,
-      "word": "part"
     },
     {
       "alignedWord": "of",
@@ -20766,10 +20572,6 @@
       "word": "do"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 4661,
-      "startOffset": 4659,
-      "word": "is"
     },
     {
       "alignedWord": "i",
@@ -22105,10 +21907,6 @@
       "word": "But"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 4964,
-      "startOffset": 4960,
-      "word": "it's"
     },
     {
       "alignedWord": "not",
@@ -24105,10 +23903,6 @@
       "word": "like"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 5414,
-      "startOffset": 5410,
-      "word": "that"
     },
     {
       "alignedWord": "so",
@@ -24690,19 +24484,7 @@
       "word": "not"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 331.15,
-      "endOffset": 5538,
-      "phones": [
-        {
-          "duration": 0.62,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 330.53,
-      "startOffset": 5535,
-      "word": "100"
+      
     },
     {
       "alignedWord": "solution",
@@ -25033,10 +24815,6 @@
       "word": "context"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 5611,
-      "startOffset": 5609,
-      "word": "of"
     },
     {
       "alignedWord": "what",
@@ -25155,10 +24933,6 @@
       "word": "talking"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 5644,
-      "startOffset": 5639,
-      "word": "about"
     },
     {
       "alignedWord": "that",
@@ -25350,10 +25124,6 @@
       "word": "understanding"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 5692,
-      "startOffset": 5690,
-      "word": "of"
     },
     {
       "alignedWord": "what",
@@ -27715,10 +27485,6 @@
       "word": "maybe"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 6207,
-      "startOffset": 6201,
-      "word": "you're"
     },
     {
       "alignedWord": "talking",
@@ -27752,10 +27518,6 @@
       "word": "talking"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 6221,
-      "startOffset": 6216,
-      "word": "about"
     },
     {
       "alignedWord": "a",
@@ -29462,19 +29224,7 @@
       "word": "quickly"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 396.14,
-      "endOffset": 6605,
-      "phones": [
-        {
-          "duration": 0.55,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 395.59,
-      "startOffset": 6598,
-      "word": "realise"
+      
     },
     {
       "alignedWord": "that",
@@ -30284,10 +30034,6 @@
       "word": "talking"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 6787,
-      "startOffset": 6782,
-      "word": "about"
     },
     {
       "alignedWord": "even",
@@ -30878,22 +30624,10 @@
       "word": "for"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 6920,
-      "startOffset": 6917,
-      "word": "the"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 6925,
-      "startOffset": 6921,
-      "word": "life"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 6928,
-      "startOffset": 6926,
-      "word": "of"
     },
     {
       "alignedWord": "me",
@@ -31381,19 +31115,7 @@
       "word": "who"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 423.71000000000004,
-      "endOffset": 7044,
-      "phones": [
-        {
-          "duration": 0.48,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 423.23,
-      "startOffset": 7038,
-      "word": "mumble"
+      
     },
     {
       "alignedWord": "people",
@@ -31808,19 +31530,7 @@
       "word": "big"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 430.46999999999997,
-      "endOffset": 7148,
-      "phones": [
-        {
-          "duration": 0.9,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 429.57,
-      "startOffset": 7138,
-      "word": "moustaches"
+      
     },
     {
       "alignedWord": "or",
@@ -32576,19 +32286,7 @@
       "word": "and"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 444.96999999999997,
-      "endOffset": 7346,
-      "phones": [
-        {
-          "duration": 0.9,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 444.07,
-      "startOffset": 7332,
-      "word": "ventriloquists"
+      s"
     },
     {
       "alignedWord": "nah",
@@ -33043,10 +32741,6 @@
       "word": "is"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 7451,
-      "startOffset": 7450,
-      "word": "d"
     },
     {
       "alignedWord": "deaf",
@@ -35229,28 +34923,12 @@
       "word": "environment"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 7943,
-      "startOffset": 7941,
-      "word": "At"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 7947,
-      "startOffset": 7944,
-      "word": "the"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 7951,
-      "startOffset": 7948,
-      "word": "end"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 7954,
-      "startOffset": 7952,
-      "word": "of"
     },
     {
       "alignedWord": "the",
@@ -35526,10 +35204,6 @@
       "word": "because"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8025,
-      "startOffset": 8019,
-      "word": "that's"
     },
     {
       "alignedWord": "not",
@@ -36052,19 +35726,7 @@
       "word": "reader"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 496.12,
-      "endOffset": 8153,
-      "phones": [
-        {
-          "duration": 0.35,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 495.77,
-      "startOffset": 8146,
-      "word": "Hipster"
+      
     },
     {
       "alignedWord": "beards",
@@ -36159,19 +35821,7 @@
       "word": "so"
     },
     {
-      "alignedWord": "<unk>",
-      "case": "success",
-      "end": 498.11999899999995,
-      "endOffset": 8179,
-      "phones": [
-        {
-          "duration": 0.4,
-          "phone": "oov_S"
-        }
-      ],
-      "start": 497.719999,
-      "startOffset": 8172,
-      "word": "hipster"
+      
     },
     {
       "alignedWord": "and",
@@ -36535,16 +36185,8 @@
       "word": "lip"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8266,
-      "startOffset": 8259,
-      "word": "reading"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8269,
-      "startOffset": 8267,
-      "word": "is"
     },
     {
       "alignedWord": "not",
@@ -37467,10 +37109,6 @@
       "word": "it"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8481,
-      "startOffset": 8478,
-      "word": "out"
     },
     {
       "alignedWord": "in",
@@ -37984,16 +37622,8 @@
       "word": "that"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8599,
-      "startOffset": 8598,
-      "word": "I"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8604,
-      "startOffset": 8600,
-      "word": "will"
     },
     {
       "alignedWord": "also",
@@ -38829,10 +38459,6 @@
       "word": "It"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8780,
-      "startOffset": 8776,
-      "word": "just"
     },
     {
       "alignedWord": "gives",
@@ -39249,10 +38875,6 @@
       "word": "example"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8866,
-      "startOffset": 8864,
-      "word": "of"
     },
     {
       "alignedWord": "people",
@@ -39629,16 +39251,8 @@
       "word": "It's"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8958,
-      "startOffset": 8955,
-      "word": "not"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 8960,
-      "startOffset": 8959,
-      "word": "a"
     },
     {
       "alignedWord": "solution",
@@ -40676,10 +40290,6 @@
       "word": "you"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9185,
-      "startOffset": 9182,
-      "word": "can"
     },
     {
       "alignedWord": "pick",
@@ -42312,10 +41922,6 @@
       "word": "It's"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9556,
-      "startOffset": 9547,
-      "word": "important"
     },
     {
       "alignedWord": "to",
@@ -43042,16 +42648,8 @@
       "word": "and"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9713,
-      "startOffset": 9708,
-      "word": "while"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9720,
-      "startOffset": 9714,
-      "word": "you're"
     },
     {
       "alignedWord": "there",
@@ -43308,10 +42906,6 @@
       "word": "So"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9783,
-      "startOffset": 9779,
-      "word": "that"
     },
     {
       "alignedWord": "you",
@@ -43802,16 +43396,8 @@
       "word": "to"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9894,
-      "startOffset": 9889,
-      "word": "speak"
     },
     {
-      "case": "not-found-in-audio",
-      "endOffset": 9897,
-      "startOffset": 9895,
-      "word": "to"
     },
     {
       "alignedWord": "you",

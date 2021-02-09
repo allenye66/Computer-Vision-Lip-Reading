@@ -1,12 +1,22 @@
 
-# use better method for now
+
+#DELETE ALL THE CASE NOT FOUND INAUDIO LINES FIRST
+#DELETE ALL THE CASE NOT FOUND INAUDIO LINES FIRST
+#DELETE ALL THE CASE NOT FOUND INAUDIO LINES FIRST
+#DELETE ALL THE CASE NOT FOUND INAUDIO LINES FIRST
+#DELETE ALL THE CASE NOT FOUND INAUDIO LINES AND THE UNKCLEAR WORDS
+#"alignedWord": "<unk>"
+#"case": "not-found-in-audio"
+
+
+#THE LENGTH OF THE CLEAN CSV HAS TO MATCH THE LENGTH OF "ALIGNED_WORD_ARR"
+
 import csv
 input_text = open('/Users/allen/Desktop/Automated-Speech-Recognition/align_example.txt')
 
 
 aligned_word_arr = []
 word_arr = []
-
 fail_words = 0
 
 
@@ -22,16 +32,18 @@ fail_words = 0
 '''
 
 
-#first remove all these instances
+#first remove all these instances, subsequent 4 lines
+'''
 for line in input_text:
 	if '"case": "not-found-in-audio",' in line:
 		fail_words+=1
 print(fail_words)
+'''
 
 
 line_num = 0
 for line in input_text:
-	print(line)
+	#print(line)
 	line_num += 1
 	if '"alignedWord":' in line:
 		aligned_word_arr.append(line_num)

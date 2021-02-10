@@ -79,10 +79,10 @@ for i in range(len(aligned_word_arr)):
 	#			end_times.append(float(i[7:len(i)-1]))
 
 	for k in range(len(durations)-1):
-		start_times.append(start_times[k-1]+durations[k])
+		start_times.append(round(start_times[k-1]+durations[k], 2))
 
 	end_times = start_times[1:]
-	end_times.append(start_times[-1]+durations[-1])
+	end_times.append(round(start_times[-1]+durations[-1],2))
 	print(phonemes)
 	print(start_times)
 	print(end_times)

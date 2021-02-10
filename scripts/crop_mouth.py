@@ -3,10 +3,13 @@ import dlib
 import csv
 import os.path
 import numpy
+import sys
 
 phoneme_framestamps = '../data/phoneme_framestamps.csv'
 video = '../data/Test_Video.mp4'
 fileOut = '../data/labeled_frames.csv'
+numpy.set_printoptions(threshold=sys.maxsize)
+
 
 with open(fileOut, 'w', newline='') as file:
     writer = csv.writer(file)

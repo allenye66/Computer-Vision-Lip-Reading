@@ -4,6 +4,8 @@ import dlib
 import csv
 import os.path
 import math
+import sys
+
 def phonemes_and_timestamps_to_csv(dirname, fileIn):
 	input_text = open(dirname)
 	aligned_word_arr = []
@@ -79,7 +81,7 @@ def frames_per_phoneme(fileIn, fileOut)
 
 
 def cropMouth(previousFileOut, videoPath, final_csv)
-
+	numpy.set_printoptions(threshold=sys.maxsize)
 	with open(final_csv, 'w', newline='') as file:
 	    writer = csv.writer(file)
 	    writer.writerow(["Frame", "Phoneme", "Image"])

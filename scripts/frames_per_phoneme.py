@@ -1,9 +1,9 @@
 import csv
 import math
 
-fileIn = 'example_phoneme_timestamps.csv'
-fileOut = 'example_phoneme_framestamps.csv'
-fps = 30
+fileIn = 'data/phoneme_timestamps.csv'
+fileOut = 'data/phoneme_framestamps.csv'
+fps = 24
 with open(fileOut, 'w', newline='') as file:
 	writer = csv.writer(file)
 	writer.writerow(["Phoneme", "Start Frame", "End Frame"])

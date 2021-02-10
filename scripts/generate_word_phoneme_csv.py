@@ -1,6 +1,9 @@
 import csv
 
-with open('phonemes.csv', 'w', newline='') as file:
+fileOut = 'data/phonemes.csv'
+fileIn = 'data/phoneme_dictionary.txt'
+
+with open(fileOut, 'w', newline='') as file:
 
 	writer = csv.writer(file)
 	writer.writerow(["Word", "Phonemes"])

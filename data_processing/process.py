@@ -216,9 +216,9 @@ def cropMouth(previousFileOut, videoPath, final_csv)
 
 
 if __name__ == '__main__':
-	phonemes_and_timestamps_to_csv('align_example.txt', "phoneme_timestamps.csv")
-	frames_per_phoneme("phoneme_timestamps.csv", "phoneme_framestamps.csv")
-	cropMouth('phoneme_framestamps.csv', 'Test_Video.mp4', 'labeled_frames.csv')
+	phonemes_and_timestamps_to_csv('../data/align_example.txt', "../data/phoneme_timestamps.csv")
+	frames_per_phoneme("../data/phoneme_timestamps.csv", "../data/phoneme_framestamps.csv")
+	cropMouth('../data/phoneme_framestamps.csv', '../data/Test_Video.mp4', '../data/labeled_frames.csv')
 
 
 	

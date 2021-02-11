@@ -7,30 +7,58 @@ import math
 import sys
 
 def phonemes_and_timestamps_to_csv(dirname, fileIn):
+	
 	input_text = open(dirname)
 	aligned_word_arr = []
 	word_arr = []
 	fail_words = 0
+
+
+
 	line_num = 0
 	for line in input_text:
+		#print(line)
 		line_num += 1
 		if '"alignedWord":' in line:
 			aligned_word_arr.append(line_num)
 		if '"word":' in line:
 			word_arr.append(line_num)
 
+
+	print(len(aligned_word_arr))
+	print(len(word_arr))
+	#should equal zero and have 1:1 ratio
+	print(len(aligned_word_arr)-len(word_arr))
+
+
+
 	with open(dirname) as f:
 	    text = f.readlines()
 	text = [x.strip() for x in text] 
+	#print((content)[1])
+
+	#text=open('align_example.txt').readlines()
+	#text = [line.strip() for line in text]
+	#with open('align_example.txt') as f:
+	#    text = f.read().splitlines() 
+	#print(text)
+
+	#python /Users/allen/Desktop/Automated-Speech-Recognition/scripts/extract_phonemes_and_timestamps_to_csv.py > /Users/allen/Desktop/Automated-Speech-Recognition/scripts/asdf.txt 
+
+
 	current_time = 0
+
 	header = ['phoneme', 'start', 'end']
+
 	with open(fileIn, 'w') as g:
 		writer = csv.writer(g)
 		writer.writerow(header)
 		for i in range(len(aligned_word_arr)):
+			#print(aligned_word_arr[i]-1, word_arr[i]) # has the -1 because we need to included "alignedword"
 			current_word_info = []
 			for j in range(aligned_word_arr[i]-1, word_arr[i]):
 				current_word_info.append(text[j])
+			#print(current_word_info)
 			phonemes = []
 			start_times = []
 			end_times = []
@@ -46,6 +74,11 @@ def phonemes_and_timestamps_to_csv(dirname, fileIn):
 				
 				if "duration" in k:
 					durations.append(float(k[12:len(k)-1]))
+				#add to the end
+				#if "endOffset" not in i:
+			#		if "end" in i:
+			#			end_times.append(float(i[7:len(i)-1]))
+
 			for k in range(len(durations)-1):
 				start_times.append(round(start_times[k-1]+durations[k], 2))
 
@@ -54,6 +87,15 @@ def phonemes_and_timestamps_to_csv(dirname, fileIn):
 			print(phonemes)
 			print(start_times)
 			print(end_times)
+			#print(durations)
+
+
+		#	print(current_word_info)
+		#	for i in current_word_info:
+		#		print(i)	
+
+
+			#csv new row
 			for j in range(len(phonemes)):
 				row = [phonemes[j], start_times[j], end_times[j]]
 				writer.writerow(row)

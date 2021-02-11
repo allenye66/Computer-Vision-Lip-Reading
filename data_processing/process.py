@@ -5,6 +5,7 @@ import csv
 import os.path
 import math
 import sys
+import numpy
 
 def phonemes_and_timestamps_to_csv(dirname, fileIn):
 	
@@ -33,7 +34,7 @@ def phonemes_and_timestamps_to_csv(dirname, fileIn):
 
 
 	with open(dirname) as f:
-	    text = f.readlines()
+		text = f.readlines()
 	text = [x.strip() for x in text] 
 	#print((content)[1])
 
@@ -50,7 +51,7 @@ def phonemes_and_timestamps_to_csv(dirname, fileIn):
 
 	header = ['phoneme', 'start', 'end']
 
-	with open(fileIn, 'w') as g:
+	with open(fileIn, 'w', newline='') as g:
 		writer = csv.writer(g)
 		writer.writerow(header)
 		for i in range(len(aligned_word_arr)):
@@ -102,7 +103,7 @@ def phonemes_and_timestamps_to_csv(dirname, fileIn):
 
 
 
-def frames_per_phoneme(fileIn, fileOut)
+def frames_per_phoneme(fileIn, fileOut):
 	fps = 24
 	with open(fileOut, 'w', newline='') as file:
 		writer = csv.writer(file)
@@ -122,97 +123,101 @@ def frames_per_phoneme(fileIn, fileOut)
 				line_count = line_count + 1
 
 
-def cropMouth(previousFileOut, videoPath, final_csv)
+def cropMouth(previousFileOut, videoPath, final_csv):
 	numpy.set_printoptions(threshold=sys.maxsize)
 	with open(final_csv, 'w', newline='') as file:
-	    writer = csv.writer(file)
-	    writer.writerow(["Frame", "Phoneme", "Image"])
-	    with open(previousFileOut) as csv_file:
-	        csv_reader = csv.reader(csv_file, delimiter=',')
-	        detector = dlib.get_frontal_face_detector()
-	        predictor = dlib.shape_predictor("../data/face_weights.dat")
-	        cap = cv2.VideoCapture(videoPath)
-	        frame_num = 0
-	        frame_height = 120
-	        frame_width = 160
-	        row_count = 1
-	        count = 0
-	        for i in csv_reader:
-	            if count == row_count:
-	                row = i
-	                break
-	            count += 1
-	        while True:
-	            _, frame = cap.read()
-	            gray = cv2.cvtColor(src=frame, code=cv2.COLOR_BGR2GRAY)
-	            faces = detector(gray)
-	            top_y = 500
-	            bottom_y = 600
-	            left_x = 300
-	            right_x = 500
-	            for face in faces:
-	                x1 = face.left()  # left point
-	                y1 = face.top()  # top point
-	                x2 = face.right()  # right point
-	                y2 = face.bottom()  # bottom point
-	                landmarks = predictor(image=gray, box=face)
-	                for n in range(48, 61):
-	                    x = landmarks.part(n).x
-	                    y = landmarks.part(n).y
-	                    cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
-	                    middle_height = landmarks.part(57).y - landmarks.part(51).y
-	                    padding_y = (frame_height - middle_height) // 2;
-	                    if (frame_height - middle_height) % 2 == 1:
-	                        top_y = landmarks.part(51).y - padding_y - 1
-	                    else:
-	                        top_y = landmarks.part(51).y - padding_y
-	                    bottom_y = landmarks.part(57).y + padding_y
+		writer = csv.writer(file)
+		writer.writerow(["Frame", "Phoneme", "Image"])
+		with open(previousFileOut) as csv_file:
+			csv_reader = csv.reader(csv_file, delimiter=',')
+			detector = dlib.get_frontal_face_detector()
+			predictor = dlib.shape_predictor("../data/face_weights.dat")
+			cap = cv2.VideoCapture(videoPath)
+			frame_num = 0
+			frame_height = 120
+			frame_width = 160
+			row_count = 1
+			count = 0
+			for i in csv_reader:
+				if count == row_count:
+					row = i
+					break
+				count += 1
+			while True:
+				_, frame = cap.read()
+				gray = cv2.cvtColor(src=frame, code=cv2.COLOR_BGR2GRAY)
+				faces = detector(gray)
+				top_y = 500
+				bottom_y = 600
+				left_x = 300
+				right_x = 500
+				for face in faces:
+					x1 = face.left()  # left point
+					y1 = face.top()  # top point
+					x2 = face.right()  # right point
+					y2 = face.bottom()  # bottom point
+					landmarks = predictor(image=gray, box=face)
+					for n in range(48, 61):
+						x = landmarks.part(n).x
+						y = landmarks.part(n).y
+						cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
+						middle_height = landmarks.part(57).y - landmarks.part(51).y
+						padding_y = (frame_height - middle_height) // 2;
+						if (frame_height - middle_height) % 2 == 1:
+							top_y = landmarks.part(51).y - padding_y - 1
+						else:
+							top_y = landmarks.part(51).y - padding_y
+						bottom_y = landmarks.part(57).y + padding_y
 
-	                    middle_width = landmarks.part(64).x - landmarks.part(48).x
+						middle_width = landmarks.part(64).x - landmarks.part(48).x
 
-	                    padding_x = (frame_width - middle_width) // 2;
-	                    if (frame_width - middle_width) % 2 == 1:
-	                        left_x = landmarks.part(48).x - padding_x - 1
-	                    else:
-	                        left_x = landmarks.part(48).x - padding_x
-	                    right_x = landmarks.part(64).x + padding_x
-	            height = bottom_y - top_y
-	            width = right_x - left_x
-	            frame = frame[top_y: bottom_y, left_x: right_x]
-	            print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
-	            if frame_num >= int(row[1]) and frame_num <= int(row[2]):
-	                num = 0
-	                pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-	                while os.path.exists(pathName):
-	                    num += 1
-	                    pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-	                image = numpy.asarray(frame)
-	                writer.writerow([frame_num,row[0],image])
-	            elif frame_num > int(row[2]):
-	                row_count += 1
-	                csv_file.seek(0)
-	                csv_reader = csv.reader(csv_file, delimiter=',')
-	                count = 0
-	                for i in csv_reader:
-	                    if count == row_count:
-	                        row = i
-	                        break
-	                    count += 1
-	                print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
-	                if frame_num >= int(row[1]) and frame_num <= int(row[2]):
-	                    num = 0
-	                    pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-	                    while os.path.exists(pathName):
-	                        num += 1
-	                        pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-	                    image = numpy.asarray(frame)
-	                    writer.writerow([frame_num,row[0],image])	            
-	            cv2.imshow(winname="Mouth", mat=frame)
-	            frame_num += 1
-	            if cv2.waitKey(delay=1) == 27:
-	                break
-	        cap.release()
-	        cv2.destroyAllWindows()
+						padding_x = (frame_width - middle_width) // 2;
+						if (frame_width - middle_width) % 2 == 1:
+							left_x = landmarks.part(48).x - padding_x - 1
+						else:
+							left_x = landmarks.part(48).x - padding_x
+						right_x = landmarks.part(64).x + padding_x
+				height = bottom_y - top_y
+				width = right_x - left_x
+				frame = frame[top_y: bottom_y, left_x: right_x]
+				print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
+				if frame_num >= int(row[1]) and frame_num <= int(row[2]):
+					num = 0
+					pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+					while os.path.exists(pathName):
+						num += 1
+						pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+					
+					image = numpy.asarray(frame)
+					grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
+					print(grayscale_image.shape)
+					writer.writerow([frame_num,row[0],grayscale_image])
+				elif frame_num > int(row[2]):
+					row_count += 1
+					csv_file.seek(0)
+					csv_reader = csv.reader(csv_file, delimiter=',')
+					count = 0
+					for i in csv_reader:
+						if count == row_count:
+							row = i
+							break
+						count += 1
+					print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
+					if frame_num >= int(row[1]) and frame_num <= int(row[2]):
+						num = 0
+						pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+						while os.path.exists(pathName):
+							num += 1
+							pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+					image = numpy.asarray(frame)
+					grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
+					writer.writerow([frame_num,row[0],grayscale_image])	            
+				cv2.imshow(winname="Mouth", mat=frame)
+				frame_num += 1
+				if cv2.waitKey(delay=1) == 27:
+					break
+			cap.release()
+			cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':

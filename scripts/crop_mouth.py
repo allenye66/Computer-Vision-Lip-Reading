@@ -27,6 +27,8 @@ with open(fileOut, 'w', newline='') as file:
         frame_height = 120
         frame_width = 160
         row_count = 1
+        middle_height = 0
+        middle_width = 0
         # row = [rows for idx, rows in enumerate(csv_reader) if idx == 1][0]
         count = 0
         for i in csv_reader:
@@ -92,7 +94,8 @@ with open(fileOut, 'w', newline='') as file:
             height = bottom_y - top_y
             width = right_x - left_x
             # print('Frame: ' + str(width) + ' x ' + str(height))
-
+            if (middle_width + middle_height) / 2 <= 40:
+                continue
 
 
             #upper_left = (left_x - border, top_y - border)
@@ -112,10 +115,11 @@ with open(fileOut, 'w', newline='') as file:
                 while os.path.exists(pathName):
                     num += 1
                     pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-                # cv2.imwrite(pathName, frame)    # save frame
-                image = numpy.asarray(frame)
+                
+                cv2.imwrite(pathName, frame)    # save frame
+                # image = numpy.asarray(frame)
                 # print(image.shape)
-                writer.writerow([frame_num,row[0],image])
+                # writer.writerow([frame_num,row[0],image])
             elif frame_num > int(row[2]):
                 row_count += 1
                 csv_file.seek(0)
@@ -133,10 +137,10 @@ with open(fileOut, 'w', newline='') as file:
                     while os.path.exists(pathName):
                         num += 1
                         pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-                    # cv2.imwrite(pathName, frame)    # save frame
-                    image = numpy.asarray(frame)
+                    cv2.imwrite(pathName, frame)    # save frame
+                    # image = numpy.asarray(frame)
                     # print(image.shape)
-                    writer.writerow([frame_num,row[0],image])
+                    # writer.writerow([frame_num,row[0],image])
                 
             
             cv2.imshow(winname="Mouth", mat=frame)

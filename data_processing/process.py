@@ -138,6 +138,8 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 			frame_width = 160
 			row_count = 1
 			count = 0
+			middle_height = 0
+        	middle_width = 0
 			for i in csv_reader:
 				if count == row_count:
 					row = i
@@ -177,8 +179,11 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 						else:
 							left_x = landmarks.part(48).x - padding_x
 						right_x = landmarks.part(64).x + padding_x
+				
 				height = bottom_y - top_y
 				width = right_x - left_x
+				if (middle_width + middle_height) / 2 <= 40:
+                	continue
 				frame = frame[top_y: bottom_y, left_x: right_x]
 				print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
 				if frame_num >= int(row[1]) and frame_num <= int(row[2]):

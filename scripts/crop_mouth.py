@@ -95,6 +95,7 @@ with open(fileOut, 'w', newline='') as file:
             width = right_x - left_x
             # print('Frame: ' + str(width) + ' x ' + str(height))
             if (middle_width + middle_height) / 2 <= 40:
+                frame_num += 1
                 continue
 
 

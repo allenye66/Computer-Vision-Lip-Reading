@@ -7,99 +7,128 @@ import math
 import sys
 import numpy
 
-def phonemes_and_timestamps_to_csv(dirname, fileIn):
-	
-	input_text = open(dirname)
-	aligned_word_arr = []
-	word_arr = []
-	fail_words = 0
+def phonemes_and_timestamps_to_csv(fileIn, fileOut):
 
+	with open(fileOut, 'w', newline='') as file:
+		writer = csv.writer(file)
+		writer.writerow(["Phoneme", "Start Time", "End Time"])
 
-
-	line_num = 0
-	for line in input_text:
-		#print(line)
-		line_num += 1
-		if '"alignedWord":' in line:
-			aligned_word_arr.append(line_num)
-		if '"word":' in line:
-			word_arr.append(line_num)
-
-
-	print(len(aligned_word_arr))
-	print(len(word_arr))
-	#should equal zero and have 1:1 ratio
-	print(len(aligned_word_arr)-len(word_arr))
-
-
-
-	with open(dirname) as f:
-		text = f.readlines()
-	text = [x.strip() for x in text] 
-	#print((content)[1])
-
-	#text=open('align_example.txt').readlines()
-	#text = [line.strip() for line in text]
-	#with open('align_example.txt') as f:
-	#    text = f.read().splitlines() 
-	#print(text)
-
-	#python /Users/allen/Desktop/Automated-Speech-Recognition/scripts/extract_phonemes_and_timestamps_to_csv.py > /Users/allen/Desktop/Automated-Speech-Recognition/scripts/asdf.txt 
-
-
-	current_time = 0
-
-	header = ['phoneme', 'start', 'end']
-
-	with open(fileIn, 'w', newline='') as g:
-		writer = csv.writer(g)
-		writer.writerow(header)
-		for i in range(len(aligned_word_arr)):
-			#print(aligned_word_arr[i]-1, word_arr[i]) # has the -1 because we need to included "alignedword"
-			current_word_info = []
-			for j in range(aligned_word_arr[i]-1, word_arr[i]):
-				current_word_info.append(text[j])
-			#print(current_word_info)
-			phonemes = []
-			start_times = []
-			end_times = []
-			durations = []
-			for k in current_word_info:
-				if "phones" not in k:
-					if "phone" in k:
-						phonemes.append(k[10:len(k)-3])
-				if "startOffset" not in k:
-					if "start" in k:
-						start_times.append(float(k[9:len(k)-1]))
+		with open(fileIn) as fp:
+			line = fp.readline()
+			line_num = 0
+			duration_arr = []
+			phoneme_arr = []
+			while line:
+				if line_num > 2:
+					if 'duration' in line:
+						duration = line[line.index(':')+2:line.index(',')]
+						duration_arr.append(round(float(duration), 2))
+						line = fp.readline()
+						line_num = line_num + 1
+						phoneme = line[line.index(':')+3:line.index('_')]
+						phoneme_arr.append(phoneme)
+					if 'start\"' in line:
+						start_time = round(float(line[line.index(':')+2:line.index(',')]), 2)
+						while phoneme_arr:
+							end_time = round(start_time + duration_arr.pop(0), 2)
+							writer.writerow([phoneme_arr.pop(0), start_time, end_time])
+							start_time = end_time
 
 				
-				if "duration" in k:
-					durations.append(float(k[12:len(k)-1]))
-				#add to the end
-				#if "endOffset" not in i:
-			#		if "end" in i:
-			#			end_times.append(float(i[7:len(i)-1]))
-
-			for k in range(len(durations)-1):
-				start_times.append(round(start_times[k-1]+durations[k], 2))
-
-			end_times = start_times[1:]
-			end_times.append(round(start_times[-1]+durations[-1],2))
-			print(phonemes)
-			print(start_times)
-			print(end_times)
-			#print(durations)
+				line = fp.readline()
+				line_num = line_num + 1
+	
+	# input_text = open(dirname)
+	# aligned_word_arr = []
+	# word_arr = []
+	# fail_words = 0
 
 
-		#	print(current_word_info)
-		#	for i in current_word_info:
-		#		print(i)	
+
+	# line_num = 0
+	# for line in input_text:
+	# 	#print(line)
+	# 	line_num += 1
+	# 	if '"alignedWord":' in line:
+	# 		aligned_word_arr.append(line_num)
+	# 	if '"word":' in line:
+	# 		word_arr.append(line_num)
 
 
-			#csv new row
-			for j in range(len(phonemes)):
-				row = [phonemes[j], start_times[j], end_times[j]]
-				writer.writerow(row)
+	# print(len(aligned_word_arr))
+	# print(len(word_arr))
+	# #should equal zero and have 1:1 ratio
+	# print(len(aligned_word_arr)-len(word_arr))
+
+
+
+	# with open(dirname) as f:
+	# 	text = f.readlines()
+	# text = [x.strip() for x in text] 
+	# #print((content)[1])
+
+	# #text=open('align_example.txt').readlines()
+	# #text = [line.strip() for line in text]
+	# #with open('align_example.txt') as f:
+	# #    text = f.read().splitlines() 
+	# #print(text)
+
+	# #python /Users/allen/Desktop/Automated-Speech-Recognition/scripts/extract_phonemes_and_timestamps_to_csv.py > /Users/allen/Desktop/Automated-Speech-Recognition/scripts/asdf.txt 
+
+
+	# current_time = 0
+
+	# header = ['phoneme', 'start', 'end']
+
+	# with open(fileIn, 'w', newline='') as g:
+	# 	writer = csv.writer(g)
+	# 	writer.writerow(header)
+	# 	for i in range(len(aligned_word_arr)):
+	# 		#print(aligned_word_arr[i]-1, word_arr[i]) # has the -1 because we need to included "alignedword"
+	# 		current_word_info = []
+	# 		for j in range(aligned_word_arr[i]-1, word_arr[i]):
+	# 			current_word_info.append(text[j])
+	# 		#print(current_word_info)
+	# 		phonemes = []
+	# 		start_times = []
+	# 		end_times = []
+	# 		durations = []
+	# 		for k in current_word_info:
+	# 			if "phones" not in k:
+	# 				if "phone" in k:
+	# 					phonemes.append(k[10:len(k)-3])
+	# 			if "startOffset" not in k:
+	# 				if "start" in k:
+	# 					start_times.append(float(k[9:len(k)-1]))
+
+				
+	# 			if "duration" in k:
+	# 				durations.append(float(k[12:len(k)-1]))
+	# 			#add to the end
+	# 			#if "endOffset" not in i:
+	# 		#		if "end" in i:
+	# 		#			end_times.append(float(i[7:len(i)-1]))
+
+	# 		for k in range(len(durations)-1):
+	# 			start_times.append(round(start_times[k-1]+durations[k], 2))
+
+	# 		end_times = start_times[1:]
+	# 		end_times.append(round(start_times[-1]+durations[-1],2))
+	# 		print(phonemes)
+	# 		print(start_times)
+	# 		print(end_times)
+	# 		#print(durations)
+
+
+	# 	#	print(current_word_info)
+	# 	#	for i in current_word_info:
+	# 	#		print(i)	
+
+
+	# 		#csv new row
+	# 		for j in range(len(phonemes)):
+	# 			row = [phonemes[j], start_times[j], end_times[j]]
+	# 			writer.writerow(row)
 
 
 
@@ -127,7 +156,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 	numpy.set_printoptions(threshold=sys.maxsize)
 	with open(final_csv, 'w', newline='') as file:
 		writer = csv.writer(file)
-		writer.writerow(["Frame", "Phoneme", "Image"])
+		writer.writerow(["Phoneme", "Image"])
 		with open(previousFileOut) as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			detector = dlib.get_frontal_face_detector()
@@ -139,7 +168,10 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 			row_count = 1
 			count = 0
 			middle_height = 0
-        	middle_width = 0
+			middle_width = 0
+			totalRows = sum(1 for row in csv_reader)
+			breakLoop = False
+			csv_file.seek(0)
 			for i in csv_reader:
 				if count == row_count:
 					row = i
@@ -180,25 +212,28 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 							left_x = landmarks.part(48).x - padding_x
 						right_x = landmarks.part(64).x + padding_x
 				
-				height = bottom_y - top_y
-				width = right_x - left_x
+				# height = bottom_y - top_y
+				# width = right_x - left_x
 				if (middle_width + middle_height) / 2 <= 40:
-                	continue
+					frame_num += 1
+					continue
 				frame = frame[top_y: bottom_y, left_x: right_x]
 				print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
 				if frame_num >= int(row[1]) and frame_num <= int(row[2]):
-					num = 0
-					pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-					while os.path.exists(pathName):
-						num += 1
-						pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+					# num = 0
+					# pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+					# while os.path.exists(pathName):
+					# 	num += 1
+					# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
 					
 					image = numpy.asarray(frame)
 					grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
-					print(grayscale_image.shape)
-					writer.writerow([frame_num,row[0],grayscale_image])
+					# print(grayscale_image.shape)
+					writer.writerow([row[0],grayscale_image])
 				elif frame_num > int(row[2]):
 					row_count += 1
+					if row_count == totalRows:
+						break
 					csv_file.seek(0)
 					csv_reader = csv.reader(csv_file, delimiter=',')
 					count = 0
@@ -208,16 +243,32 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 							break
 						count += 1
 					print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
+					while int(row[1]) > int(row[2]):
+						row_count += 1
+						if row_count == totalRows:
+							breakLoop = True
+							break
+						csv_file.seek(0)
+						csv_reader = csv.reader(csv_file, delimiter=',')
+						count = 0
+						for i in csv_reader:
+							if count == row_count:
+								row = i
+								break
+							count += 1
+						print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
+					if breakLoop:
+						break
 					if frame_num >= int(row[1]) and frame_num <= int(row[2]):
-						num = 0
-						pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-						while os.path.exists(pathName):
-							num += 1
-							pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-					image = numpy.asarray(frame)
-					grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
-					writer.writerow([frame_num,row[0],grayscale_image])	            
-				cv2.imshow(winname="Mouth", mat=frame)
+						# num = 0
+						# pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+						# while os.path.exists(pathName):
+						# 	num += 1
+						# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+						image = numpy.asarray(frame)
+						grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
+						writer.writerow([row[0],grayscale_image])	            
+				# cv2.imshow(winname="Mouth", mat=frame)
 				frame_num += 1
 				if cv2.waitKey(delay=1) == 27:
 					break

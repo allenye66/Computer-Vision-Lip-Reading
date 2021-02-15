@@ -1,7 +1,7 @@
 import csv
 
-fileOut = 'data/phoneme_timestamps.csv'
-fileIn = 'data/align_example.txt'
+fileOut = '../data/phoneme_timestamps.csv'
+fileIn = '../data/align_example.txt'
 
 with open(fileOut, 'w', newline='') as file:
 	writer = csv.writer(file)

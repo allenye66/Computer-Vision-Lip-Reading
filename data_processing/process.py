@@ -194,7 +194,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					for n in range(48, 61):
 						x = landmarks.part(n).x
 						y = landmarks.part(n).y
-						cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
+						# cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
 						middle_height = landmarks.part(57).y - landmarks.part(51).y
 						padding_y = (frame_height - middle_height) // 2;
 						if (frame_height - middle_height) % 2 == 1:

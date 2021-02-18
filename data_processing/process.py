@@ -158,7 +158,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 		writer = csv.writer(file)
 		title = []
 		title.append("Phoneme")
-		for i in range(19200):
+		for i in range(4096):
 			title.append("Pixel " + str(i + 1))
 		writer.writerow(title)
 		with open(previousFileOut) as csv_file:
@@ -222,10 +222,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					frame_num += 1
 					continue
 				frame = frame[top_y: bottom_y, left_x: right_x]
-				dimensions = (120, 160)
-				frame = cv2.GaussianBlur(frame, (7,7), 0)
 
-				frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 				print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
 				if frame_num >= int(row[1]) and frame_num <= int(row[2]):
 					# num = 0
@@ -233,7 +230,16 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					# while os.path.exists(pathName):
 					# 	num += 1
 					# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+					# cv2.imwrite(pathName, frame)
 					
+
+					# cv2.imwrite("../Before/"+row[0]+"_"+str(num)+".jpg", frame)
+					dimensions = (64, 64)
+					frame = cv2.resize(frame, dimensions, interpolation = cv2.INTER_AREA)
+
+					frame = cv2.GaussianBlur(frame, (7,7), 0)
+
+					# cv2.imwrite("../After/"+row[0]+"_"+str(num)+".jpg", frame)
 					array = []
 					array.append(row[0])
 					image = numpy.asarray(frame)
@@ -241,14 +247,10 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					grayscale_image = grayscale_image.astype(int)
 					grayscale_image = grayscale_image.flatten()
 
-					dimensions = (120, 160)
-					frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
-
-					frame = cv2.GaussianBlur(frame, (7,7), 0)
-
 					for pixel in grayscale_image:
 						array.append(pixel)
 					# print(grayscale_image.shape)
+					print(len(array))
 					writer.writerow(array)
 				elif frame_num > int(row[2]):
 					row_count += 1
@@ -285,6 +287,14 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 						# while os.path.exists(pathName):
 						# 	num += 1
 						# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+
+						# cv2.imwrite("../Before/"+row[0]+"_"+str(num)+".jpg", frame)
+
+						dimensions = (64, 64)
+						frame = cv2.resize(frame, dimensions, interpolation = cv2.INTER_AREA)
+
+						frame = cv2.GaussianBlur(frame, (7,7), 0)
+						# cv2.imwrite("../After/"+row[0]+"_"+str(num)+".jpg", frame)
 						array = []
 						array.append(row[0])
 						image = numpy.asarray(frame)

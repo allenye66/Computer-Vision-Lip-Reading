@@ -245,7 +245,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 
 					frame = cv2.GaussianBlur(frame, (7,7), 0)
-					
+
 					for pixel in grayscale_image:
 						array.append(pixel)
 					# print(grayscale_image.shape)

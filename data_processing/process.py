@@ -156,7 +156,11 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 	numpy.set_printoptions(threshold=sys.maxsize)
 	with open(final_csv, 'w', newline='') as file:
 		writer = csv.writer(file)
-		writer.writerow(["Phoneme", "Image"])
+		title = []
+		title.append("Phoneme")
+		for i in range(19200):
+			title.append("Pixel " + str(i + 1))
+		writer.writerow(title)
 		with open(previousFileOut) as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			detector = dlib.get_frontal_face_detector()
@@ -194,7 +198,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					for n in range(48, 61):
 						x = landmarks.part(n).x
 						y = landmarks.part(n).y
-						cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
+						# cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
 						middle_height = landmarks.part(57).y - landmarks.part(51).y
 						padding_y = (frame_height - middle_height) // 2;
 						if (frame_height - middle_height) % 2 == 1:
@@ -218,6 +222,10 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					frame_num += 1
 					continue
 				frame = frame[top_y: bottom_y, left_x: right_x]
+				dimensions = (120, 160)
+				frame = cv2.GaussianBlur(frame, (7,7), 0)
+
+				frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
 				print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
 				if frame_num >= int(row[1]) and frame_num <= int(row[2]):
 					# num = 0
@@ -226,10 +234,22 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 					# 	num += 1
 					# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
 					
+					array = []
+					array.append(row[0])
 					image = numpy.asarray(frame)
 					grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
+					grayscale_image = grayscale_image.astype(int)
+					grayscale_image = grayscale_image.flatten()
+
+					dimensions = (120, 160)
+					frame = cv2.resize(frame, dim, interpolation = cv2.INTER_AREA)
+
+					frame = cv2.GaussianBlur(frame, (7,7), 0)
+					
+					for pixel in grayscale_image:
+						array.append(pixel)
 					# print(grayscale_image.shape)
-					writer.writerow([row[0],grayscale_image])
+					writer.writerow(array)
 				elif frame_num > int(row[2]):
 					row_count += 1
 					if row_count == totalRows:
@@ -265,9 +285,16 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 						# while os.path.exists(pathName):
 						# 	num += 1
 						# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
+						array = []
+						array.append(row[0])
 						image = numpy.asarray(frame)
 						grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
-						writer.writerow([row[0],grayscale_image])	            
+						grayscale_image = grayscale_image.astype(int)
+						grayscale_image = grayscale_image.flatten()
+						for pixel in grayscale_image:
+							array.append(pixel)
+						# print(grayscale_image.shape)
+						writer.writerow(array)       
 				# cv2.imshow(winname="Mouth", mat=frame)
 				frame_num += 1
 				if cv2.waitKey(delay=1) == 27:

@@ -23,9 +23,9 @@ with open(fileOut, 'w', newline='') as file:
 					next_row = []
 					next_row.append(row[0])
 					image = np.array(row[1].replace('[', '').replace(']', '').split()).astype(np.float).astype(np.uint8)
-					if len(image) > 19200:
-						print(image)
-						break
+					# if len(image) > 19200:
+					# 	print(image)
+					# 	break
 					for value in image:
 						next_row.append(value)
 					writer.writerow(next_row)

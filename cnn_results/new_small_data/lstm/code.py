@@ -1,0 +1,5 @@
+model = Sequential()
+model.add(LSTM(64, dropout=0, recurrent_dropout=0,go_backwards=True, input_shape=(4096,1)))
+model.add(Dense(39,activation='softmax'))
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+history = model.fit(X_train,y_train, epochs = 25,batch_size=32,validation_data = (X_test, y_test), shuffle = True)

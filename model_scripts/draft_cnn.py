@@ -33,6 +33,7 @@ import pickle
 from sklearn.metrics import precision_score, recall_score, accuracy_score, balanced_accuracy_score, f1_score
 import os
 import pandas as pd
+
 df = pd.read_csv("/kaggle/input/1d-labeled-frames/final_labeled_frames.csv", error_bad_lines=False)
 
 print(df.shape)
@@ -52,9 +53,6 @@ df = df.drop(df.columns[0], axis = 1)
 X_train, X_test, y_train, y_test = train_test_split(df, labels, random_state = 42, test_size = 0.2, stratify = labels)
 X_train = tf.reshape(X_train, (8084, 19200, 1))
 X_test = tf.reshape(X_test, (2021, 19200, 1))
-
-
-
 
 model = Sequential()
 model.add(Conv1D(filters= 64, kernel_size=3, activation ='relu',strides = 2, padding = 'valid', input_shape= (19200, 1)))

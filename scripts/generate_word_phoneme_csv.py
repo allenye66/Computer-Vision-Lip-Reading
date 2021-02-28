@@ -30,5 +30,3 @@ with open(fileOut, 'w', newline='') as file:
 			word = ""
 			phonemes = ""
 			line = fp.readline()
-
-			print("Line {}: {}".format(cnt, line.strip()))

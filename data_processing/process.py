@@ -7,14 +7,21 @@ import math
 import sys
 import numpy
 
-def phonemes_and_timestamps_to_csv(fileIn, fileOut):
 
-	with open(fileOut, 'w', newline='') as file:
-		writer = csv.writer(file)
+'''
+Parses through text output from Gentle forced aligner and generates csv file 
+with start and end time of each phoneme
+'''
+def phonemes_and_timestamps_to_csv(fileIn, fileOut):
+	
+	with open(fileOut, 'w', newline='') as write_file:
+		
+		writer = csv.writer(write_file)
 		writer.writerow(["Phoneme", "Start Time", "End Time"])
 
-		with open(fileIn) as fp:
-			line = fp.readline()
+		with open(fileIn) as read_file:
+			
+			line = read_file.readline()
 			line_num = 0
 			duration_arr = []
 			phoneme_arr = []
@@ -33,112 +40,26 @@ def phonemes_and_timestamps_to_csv(fileIn, fileOut):
 							end_time = round(start_time + duration_arr.pop(0), 2)
 							writer.writerow([phoneme_arr.pop(0), start_time, end_time])
 							start_time = end_time
-
-				
-				line = fp.readline()
-				line_num = line_num + 1
-	
-	# input_text = open(dirname)
-	# aligned_word_arr = []
-	# word_arr = []
-	# fail_words = 0
+				line = read_file.readline()
+				line_num += 1
 
 
-
-	# line_num = 0
-	# for line in input_text:
-	# 	#print(line)
-	# 	line_num += 1
-	# 	if '"alignedWord":' in line:
-	# 		aligned_word_arr.append(line_num)
-	# 	if '"word":' in line:
-	# 		word_arr.append(line_num)
-
-
-	# print(len(aligned_word_arr))
-	# print(len(word_arr))
-	# #should equal zero and have 1:1 ratio
-	# print(len(aligned_word_arr)-len(word_arr))
-
-
-
-	# with open(dirname) as f:
-	# 	text = f.readlines()
-	# text = [x.strip() for x in text] 
-	# #print((content)[1])
-
-	# #text=open('align_example.txt').readlines()
-	# #text = [line.strip() for line in text]
-	# #with open('align_example.txt') as f:
-	# #    text = f.read().splitlines() 
-	# #print(text)
-
-	# #python /Users/allen/Desktop/Automated-Speech-Recognition/scripts/extract_phonemes_and_timestamps_to_csv.py > /Users/allen/Desktop/Automated-Speech-Recognition/scripts/asdf.txt 
-
-
-	# current_time = 0
-
-	# header = ['phoneme', 'start', 'end']
-
-	# with open(fileIn, 'w', newline='') as g:
-	# 	writer = csv.writer(g)
-	# 	writer.writerow(header)
-	# 	for i in range(len(aligned_word_arr)):
-	# 		#print(aligned_word_arr[i]-1, word_arr[i]) # has the -1 because we need to included "alignedword"
-	# 		current_word_info = []
-	# 		for j in range(aligned_word_arr[i]-1, word_arr[i]):
-	# 			current_word_info.append(text[j])
-	# 		#print(current_word_info)
-	# 		phonemes = []
-	# 		start_times = []
-	# 		end_times = []
-	# 		durations = []
-	# 		for k in current_word_info:
-	# 			if "phones" not in k:
-	# 				if "phone" in k:
-	# 					phonemes.append(k[10:len(k)-3])
-	# 			if "startOffset" not in k:
-	# 				if "start" in k:
-	# 					start_times.append(float(k[9:len(k)-1]))
-
-				
-	# 			if "duration" in k:
-	# 				durations.append(float(k[12:len(k)-1]))
-	# 			#add to the end
-	# 			#if "endOffset" not in i:
-	# 		#		if "end" in i:
-	# 		#			end_times.append(float(i[7:len(i)-1]))
-
-	# 		for k in range(len(durations)-1):
-	# 			start_times.append(round(start_times[k-1]+durations[k], 2))
-
-	# 		end_times = start_times[1:]
-	# 		end_times.append(round(start_times[-1]+durations[-1],2))
-	# 		print(phonemes)
-	# 		print(start_times)
-	# 		print(end_times)
-	# 		#print(durations)
-
-
-	# 	#	print(current_word_info)
-	# 	#	for i in current_word_info:
-	# 	#		print(i)	
-
-
-	# 		#csv new row
-	# 		for j in range(len(phonemes)):
-	# 			row = [phonemes[j], start_times[j], end_times[j]]
-	# 			writer.writerow(row)
-
-
-
+'''
+Reads csv file with timestamps of each phoneme and generates csv file
+with start and end frame of each phoneme
+'''
 def frames_per_phoneme(fileIn, fileOut):
-	fps = 24
-	with open(fileOut, 'w', newline='') as file:
-		writer = csv.writer(file)
+	
+	fps = 24	# fps of video feed
+	
+	with open(fileOut, 'w', newline='') as write_file:
+
+		writer = csv.writer(write_file)
 		writer.writerow(["Phoneme", "Start Frame", "End Frame"])
-		with open(fileIn) as csv_file:
-			csv_reader = csv.reader(csv_file, delimiter=',')
+
+		with open(fileIn) as read_file:
+
+			csv_reader = csv.reader(read_file, delimiter=',')
 			line_count = 0
 			for row in csv_reader:
 				if line_count != 0:
@@ -148,24 +69,38 @@ def frames_per_phoneme(fileIn, fileOut):
 					start_frame = math.ceil(float(start_time) * fps)
 					end_frame = math.floor(float(end_time) * fps)
 					writer.writerow([phoneme, start_frame, end_frame])
-					print(f'Phoneme: {phoneme} | Start Frame: {start_frame} | End Frame: {end_frame}')
-				line_count = line_count + 1
+				line_count += 1
 
 
-def cropMouth(previousFileOut, videoPath, final_csv):
+'''
+Iterates through each frame in the video feed and segments out the mouth using 
+OpenCV Haar Cascade facial features model. Reads csv file with start and end frame 
+of each phoneme in order to label each frame with a phoneme. Outputs a csv file
+with each row containing a phoneme, and 4096 pixels representing the image associated with 
+that phoneme.
+'''
+def crop_mouth(fileIn, videoPath, fileOut):
+	
 	numpy.set_printoptions(threshold=sys.maxsize)
-	with open(final_csv, 'w', newline='') as file:
-		writer = csv.writer(file)
+	
+	with open(fileOut, 'w', newline='') as write_file:
+		
+		writer = csv.writer(write_file)
 		title = []
 		title.append("Phoneme")
 		for i in range(4096):
 			title.append("Pixel " + str(i + 1))
 		writer.writerow(title)
-		with open(previousFileOut) as csv_file:
-			csv_reader = csv.reader(csv_file, delimiter=',')
+		
+		with open(fileIn) as read_file:
+			
+			csv_reader = csv.reader(read_file, delimiter=',')
+
+			# initialize facial feature detection model
 			detector = dlib.get_frontal_face_detector()
 			predictor = dlib.shape_predictor("../data/face_weights.dat")
 			cap = cv2.VideoCapture(videoPath)
+			
 			frame_num = 0
 			frame_height = 120
 			frame_width = 160
@@ -175,12 +110,14 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 			middle_width = 0
 			totalRows = sum(1 for row in csv_reader)
 			breakLoop = False
-			csv_file.seek(0)
+			read_file.seek(0)
+
 			for i in csv_reader:
 				if count == row_count:
 					row = i
 					break
 				count += 1
+
 			while True:
 				_, frame = cap.read()
 				gray = cv2.cvtColor(src=frame, code=cv2.COLOR_BGR2GRAY)
@@ -190,15 +127,14 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 				left_x = 300
 				right_x = 500
 				for face in faces:
-					x1 = face.left()  # left point
-					y1 = face.top()  # top point
-					x2 = face.right()  # right point
-					y2 = face.bottom()  # bottom point
+					x1 = face.left()
+					y1 = face.top()
+					x2 = face.right()
+					y2 = face.bottom()
 					landmarks = predictor(image=gray, box=face)
 					for n in range(48, 61):
 						x = landmarks.part(n).x
 						y = landmarks.part(n).y
-						# cv2.circle(img=frame, center=(x, y), radius=3, color=(0, 255, 0), thickness=-1)
 						middle_height = landmarks.part(57).y - landmarks.part(51).y
 						padding_y = (frame_height - middle_height) // 2;
 						if (frame_height - middle_height) % 2 == 1:
@@ -216,30 +152,18 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 							left_x = landmarks.part(48).x - padding_x
 						right_x = landmarks.part(64).x + padding_x
 				
-				# height = bottom_y - top_y
-				# width = right_x - left_x
 				if (middle_width + middle_height) / 2 <= 40:
 					frame_num += 1
 					continue
+
 				frame = frame[top_y: bottom_y, left_x: right_x]
 
-				print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
 				if frame_num >= int(row[1]) and frame_num <= int(row[2]):
-					# num = 0
-					# pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-					# while os.path.exists(pathName):
-					# 	num += 1
-					# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-					# cv2.imwrite(pathName, frame)
 					
-
-					# cv2.imwrite("../Before/"+row[0]+"_"+str(num)+".jpg", frame)
 					dimensions = (64, 64)
 					frame = cv2.resize(frame, dimensions, interpolation = cv2.INTER_AREA)
-
 					frame = cv2.GaussianBlur(frame, (7,7), 0)
-
-					# cv2.imwrite("../After/"+row[0]+"_"+str(num)+".jpg", frame)
+					
 					array = []
 					array.append(row[0])
 					image = numpy.asarray(frame)
@@ -249,63 +173,56 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 
 					for pixel in grayscale_image:
 						array.append(pixel)
-					# print(grayscale_image.shape)
-					print(len(array))
 					writer.writerow(array)
+
 				elif frame_num > int(row[2]):
+					
 					row_count += 1
 					if row_count == totalRows:
 						break
-					csv_file.seek(0)
-					csv_reader = csv.reader(csv_file, delimiter=',')
+					read_file.seek(0)
+					csv_reader = csv.reader(read_file, delimiter=',')
 					count = 0
 					for i in csv_reader:
 						if count == row_count:
 							row = i
 							break
 						count += 1
-					print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
+
 					while int(row[1]) > int(row[2]):
 						row_count += 1
 						if row_count == totalRows:
 							breakLoop = True
 							break
-						csv_file.seek(0)
-						csv_reader = csv.reader(csv_file, delimiter=',')
+						read_file.seek(0)
+						csv_reader = csv.reader(read_file, delimiter=',')
 						count = 0
 						for i in csv_reader:
 							if count == row_count:
 								row = i
 								break
 							count += 1
-						print("Frame: "+str(frame_num)+" | "+row[1]+" - "+row[2]+" | "+str(frame_num >= int(row[1]) and frame_num <= int(row[2])))
+
 					if breakLoop:
 						break
-					if frame_num >= int(row[1]) and frame_num <= int(row[2]):
-						# num = 0
-						# pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
-						# while os.path.exists(pathName):
-						# 	num += 1
-						# 	pathName = "../Frames/"+row[0]+"_"+str(num)+".jpg"
 
-						# cv2.imwrite("../Before/"+row[0]+"_"+str(num)+".jpg", frame)
+					if frame_num >= int(row[1]) and frame_num <= int(row[2]):
 
 						dimensions = (64, 64)
 						frame = cv2.resize(frame, dimensions, interpolation = cv2.INTER_AREA)
-
 						frame = cv2.GaussianBlur(frame, (7,7), 0)
-						# cv2.imwrite("../After/"+row[0]+"_"+str(num)+".jpg", frame)
+						
 						array = []
 						array.append(row[0])
 						image = numpy.asarray(frame)
 						grayscale_image = numpy.dot(image[...,:3], [0.299, 0.587, 0.144])
 						grayscale_image = grayscale_image.astype(int)
 						grayscale_image = grayscale_image.flatten()
+						
 						for pixel in grayscale_image:
 							array.append(pixel)
-						# print(grayscale_image.shape)
 						writer.writerow(array)       
-				# cv2.imshow(winname="Mouth", mat=frame)
+
 				frame_num += 1
 				if cv2.waitKey(delay=1) == 27:
 					break
@@ -316,7 +233,7 @@ def cropMouth(previousFileOut, videoPath, final_csv):
 if __name__ == '__main__':
 	phonemes_and_timestamps_to_csv('../data/align_example.txt', "../data/phoneme_timestamps.csv")
 	frames_per_phoneme("../data/phoneme_timestamps.csv", "../data/phoneme_framestamps.csv")
-	cropMouth('../data/phoneme_framestamps.csv', '../data/Test_Video.mp4', '../data/labeled_frames.csv')
+	crop_mouth('../data/phoneme_framestamps.csv', '../data/Test_Video.mp4', '../data/labeled_frames.csv')
 
 
 	

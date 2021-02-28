@@ -49,7 +49,6 @@ with open(fileIn) as csv_file:
 		if line_count != 0:
 			phoneme = row[0]
 			phoneme_dict[phoneme] = phoneme_dict[phoneme] + 1
-			print(line_count)
 		line_count = line_count + 1
 	print(dict(sorted(phoneme_dict.items(), key=lambda item: item[1])))
 
